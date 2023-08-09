@@ -3,7 +3,7 @@ import re
 import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-
+# remove_SI_block function is used to remove the SI block from the .nc1 file, thus removing unwanted scribing information from the .nc1 file
 def remove_SI_block(filepath):
     with open(filepath, 'r') as file:
         lines = file.readlines()
@@ -20,7 +20,7 @@ def remove_SI_block(filepath):
 
     with open(filepath, 'w') as file:
         file.writelines(new_lines)
-
+#  process_idstv_file function is used to process the .idstv file, thus removing unwanted information from the .idstv file
 def process_idstv_file(idstv_file):
     while True:
         try:
@@ -48,7 +48,9 @@ def process_idstv_file(idstv_file):
 
 
 
-
+#  process_and_rename_file function checks the lines 4 and 5 
+#  of the .nc1 file and if the length of the lines is greater than 25 characters, it removes the first 12 characters of the lines,
+#  which include the 2 spaces and the 10 characters of the filename
 def process_and_rename_file(file_path):
     if not os.path.exists(file_path):
         return
