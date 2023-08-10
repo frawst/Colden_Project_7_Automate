@@ -107,8 +107,7 @@ if __name__ == "__main__":
             continue
         observer.schedule(event_handler, folder, recursive=True)
 
-    print("Waiting for 6 seconds before starting monitoring...")
-    time.sleep(6)
+    # deleted the 6 second delay
 
     observer.start()
     print(f"Monitoring started on folders: {', '.join(folders_to_track)}...")
