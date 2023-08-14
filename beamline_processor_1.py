@@ -7,10 +7,13 @@ from watchdog.events import FileSystemEventHandler
 def remove_SI_block(filepath):
     with open(filepath, 'r') as file:
         lines = file.readlines()
-
+# The new_lines list is used to store the lines of the .nc1 file that are not part of the SI block
     new_lines = []
+    # the skip variable is used to skip the lines that are part of the SI block
     skip = False
+    # The for loop is used to iterate through the lines of the .nc1 file
     for line in lines:
+        # The if function checks if the line starts with SI and if it does, it sets the skip variable to True
         if line.strip().startswith("SI"):
             skip = True
         elif len(line.strip()) == 2 and not line.strip().startswith('  '):
@@ -49,18 +52,20 @@ def process_idstv_file(idstv_file):
 
 
 #  process_and_rename_file function checks the lines 4 and 5 
-#  of the .nc1 file and if the length of the lines is greater than 25 characters, it removes the first 12 characters of the lines,
+#  of the .nc1 file and if the length of the lines is greater than 25 characters,
+#  it removes the first 12 characters of the lines,
 #  which include the 2 spaces and the 10 characters of the filename
 def process_and_rename_file(file_path):
     if not os.path.exists(file_path):
         return
-
+# The os.path.basename() method in Python is used to get the base name in specified path.
+# The os.path.dirname() method in Python is used to get the directory name from the specified path.
     filename = os.path.basename(file_path)
     directory = os.path.dirname(file_path)
-    
+    # The if function checks if the file is a .nc1 file and if the length of the filename is greater than 25 characters
     if file_path.endswith(".nc1") and len(filename) >= 25:
         new_file_path = os.path.join(directory, filename[10:])
-        
+        # The with function opens the file and reads the lines
         with open(file_path, "r") as file_obj:
             lines = file_obj.readlines()
 
