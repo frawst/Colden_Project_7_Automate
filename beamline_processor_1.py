@@ -35,6 +35,7 @@ def process_idstv_file(idstv_file):
             content = re.sub(r'(<Name>).*?C_(.*?</Name>)', r'\1\2', content)
             content = re.sub(r'(<Name>).*?HSS_(.*?</Name>)', r'\1\2', content)
             content = re.sub(r'(<Name>).*?L_(.*?</Name>)', r'\1\2', content)
+            content = re.sub(r'(<Name>).*?HP_(.*?</Name>)', r'\1\2', content)
             content = re.sub(r'<RemnantLocation>.*?</RemnantLocation>', '<RemnantLocation>v</RemnantLocation>', content)
 
             # Trim the first 10 characters for the specified tags only if content is 25+ characters long
@@ -104,6 +105,7 @@ if __name__ == "__main__":
                         'N:\\Production\\PEDDINGHAUS IDSTV\\W8733',
                         'N:\\Production\\PEDDINGHAUS IDSTV\\W8736',
                         'N:\\Production\\PEDDINGHAUS IDSTV\\W8745',
+                        'C:\\Users\\fab.automation\\Desktop\\Testing angle Processer'
                         ]
 
     for folder in folders_to_track:
