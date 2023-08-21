@@ -86,7 +86,7 @@ def process_and_rename_file(file_path):
 
 class CombinedHandler(FileSystemEventHandler):
     def on_created(self, event):
-        print(f'event type: {event.event_type}  path : {event.src_path}')
+        print(f'{time.localtime()}: event type: {event.event_type}  path: {event.src_path}')
         file = event.src_path
         if file.endswith(".nc1"):
             remove_SI_block(file)
