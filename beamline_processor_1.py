@@ -5,6 +5,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 # remove_SI_block function is used to remove the SI block from the .nc1 file, thus removing unwanted scribing information from the .nc1 file
 def remove_SI_block(filepath):
+    
     with open(filepath, 'r') as file:
         lines = file.readlines()
 # The new_lines list is used to store the lines of the .nc1 file that are not part of the SI block
@@ -86,12 +87,20 @@ def process_and_rename_file(file_path):
 
 class CombinedHandler(FileSystemEventHandler):
     def on_created(self, event):
-        print(f'{time.localtime()}: event type: {event.event_type}  path: {event.src_path}')
+        
+        print(f'event type: {event.event_type}  path: {event.src_path}')
+
         file = event.src_path
         if file.endswith(".nc1"):
-            remove_SI_block(file)
+            try:
+                remove_SI_block(file)
+            except FileNotFoundError:
+                print(f"ERROR: Cannot access path {file}")
         elif file.endswith(".idstv"):
-            process_idstv_file(file)
+            try:
+                process_idstv_file(file)
+            except FileNotFoundError:
+                print(f"ERROR: Cannot access path {file}")
 
     def on_modified(self, event):
         if not event.is_directory:
