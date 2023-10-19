@@ -84,7 +84,7 @@ def process_and_rename_file(file_path):
         os.rename(file_path, new_file_path)
         print(f"{filename} has been modified and saved as {filename[10:]}.")
 
-
+123
 class CombinedHandler(FileSystemEventHandler):
     def on_created(self, event):
         
